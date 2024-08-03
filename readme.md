@@ -33,6 +33,14 @@ The project structure is as follows:
 
 ## Setup and Running
 
+You also have to create a .env file in both the root directory and the app directory, the .env file should define these enviroment variables, 
+POSTGRES_USER
+POSTGRES_PASSWORD
+PG_HOST
+PG_PORT
+PGDATA
+POSTGRES_DB
+
 To set up and run the project:
 
 1. Ensure Docker and Docker Compose are installed on your system.
