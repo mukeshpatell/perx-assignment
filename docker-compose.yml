@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  web:
+    build: ./app
+    container_name: web-container
+    ports:
+      - "5000:5000"
+    depends_on:
+      perx_test_db:
+        condition: service_healthy
+    restart: always
+    networks:
+      - perx-network
+
+  perx:
+    build: .
+    container_name: perx-container
+    ports:
+      - "8080:80"
+    depends_on:
+      perx_test_db:
+          condition: service_healthy
+    networks:
+      - perx-network
+
+  perx_test_db:
+    container_name: perx_test_db_container
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: perx_test_db
+    volumes:
+      - perx_test_vol:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d perx_test_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - perx-network
+
+volumes:
+  perx_test_vol:
+    driver: local
+
+networks:
+  perx-network:
+    driver: bridge

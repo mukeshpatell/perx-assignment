@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.5em 1em;
+        }
+        .dataTables_wrapper .dataTables_info {
+            margin: 0.5em 0;
+        }
+        .dataTables_wrapper .dataTables_filter input {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+        .dataTables_wrapper .dataTables_length select {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+        table.dataTable thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        table.dataTable tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">SQL Task A Result</h1>
+        <p><b>Objective:</b>Identify the most popular engagement day and time within a specific date range. The data is stored in UTC, but the input will be in SGT (Singapore Time).</p>
+        <p>The below table shows is sorted by best engagement day for each campaign in descending order. The dates are selected to be in range with data provide.
+        </p>
+        <table id="dataTable1" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                    <th>No. of transactions</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in sql_task_a_result %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1 class="mt-4 mb-4">SQL Task B Result</h1>
+        <p><b>Objective:</b>Provide a weekly breakdown of reward performance with a comparison to the previous week.</p>
+        <p>Table shows reward performance of each reward campaign and also the percentage difference from previous week.</p>
+        <table id="dataTable2" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Reward Name</th>
+                    <th>Reward Redeemed Count</th>
+                    <th>Percentage Difference as per Previous Week</th>
+                    <th>Week</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in sql_task_b_result %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1 class="mt-4 mb-4">HTTP Log Analyze Task Result</h1>
+        <p><b>Objective:</b>Analyze campaign performance based on HTTP log data. Generate a report including user sessions, campaigns viewed, rewards issued, and whether a reward was driven by a campaign view.</p>
+        <p>The table below shows user sessions, all campaigns viewed in the session (5 mins), rewards issued in the session, and whether a reward was driven by a campaign view.</p>
+        <p>The table can be sorted to find if the reward was diven by a campaign view.</p>
+        <table id="dataTable3" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Session Id</th>
+                    <th>Session Start</th>
+                    <th>Session End</th>
+                    <th>Campaigns</th>
+                    <th>Rewards Issued</th>
+                    <th>Reward Driven by Campaign View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in http_log_analyze_task_result %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable1').DataTable();
+            $('#dataTable2').DataTable();
+            $('#dataTable3').DataTable();
+        });
+    </script>
+</body>
+</html>
