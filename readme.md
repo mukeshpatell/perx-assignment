@@ -33,13 +33,12 @@ The project structure is as follows:
 
 ## Setup and Running
 
-You also have to create a .env file in both the root directory and the app directory, the .env file should define these enviroment variables, 
-POSTGRES_USER
-POSTGRES_PASSWORD
-PG_HOST
-PG_PORT
-PGDATA
-POSTGRES_DB
+Note: Please make sure to create a .env file in both the root directory and the app directory, the .env file should define these enviroment variables, <br>
+POSTGRES_USER<br>
+POSTGRES_PASSWORD<br>
+PG_HOST<br>
+PG_PORT<br>
+PGDATA<br>
 
 To set up and run the project:
 
